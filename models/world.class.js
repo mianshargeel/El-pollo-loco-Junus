@@ -27,12 +27,14 @@ class World {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); 
     
     this.addArrayObjectToMap(this.backgroundObjects); //to keep this img at background
+    this.addArrayObjectToMap(this.clouds);
     this.addToMap(this.character);
     this.addArrayObjectToMap(this.enemies);
-    this.addArrayObjectToMap(this.clouds);
     
     let self = this;
-    requestAnimationFrame(function () { self.draw() }); 
+    requestAnimationFrame(function () {
+      self.draw();
+    }); 
   }
 
   addArrayObjectToMap(arrays) { 
