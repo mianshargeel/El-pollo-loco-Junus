@@ -7,10 +7,13 @@ class World {
     clouds = [
       new Cloud()
   ];
-  backgroundObject = [
-   new BackgroundObject('img/5_background/layers/3_third_layer/1.png')
+  backgroundObjects = [
+  new BackgroundObject('img/5_background/layers/air.png', 0),
+   new BackgroundObject('img/5_background/layers/3_third_layer/1.png', 0),
+   new BackgroundObject('img/5_background/layers/2_second_layer/1.png', 0),
+   new BackgroundObject('img/5_background/layers/1_first_layer/1.png', 0),
   ];
- 
+  imageLoaded = 0;
 
   constructor(canvas) {
     this.ctx = canvas.getContext('2d');
@@ -21,25 +24,19 @@ class World {
   
   
   draw() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // to removes all content from the entire canvas.
-
-    //googled => canvas context draw image[for following drawImage()]
-    this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.width, this.character.height); 
-
-    this.enemies.forEach(enemy => {
-      this.addToMap(enemy);
-    });
-    this.clouds.forEach(cloud => {
-      this.addToMap(cloud);
-    });
-    this.backgroundObject.forEach(bgObj => {
-      this.addToMap(bgObj);
-    });
-    let self = this;
-    requestAnimationFrame(function () {
-      self.draw(); //Inside an anonymous function (like the one passed to requestAnimationFrame), 'this' does not refer to the same 'this' as in the surrounding code.To keep a reference to the correct this (typically an object), we store it in self.
-    }); // Calls itself to create a loop [60 FPS]
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); 
     
+    this.addArrayObjectToMap(this.backgroundObjects); //to keep this img at background
+    this.addToMap(this.character);
+    this.addArrayObjectToMap(this.enemies);
+    this.addArrayObjectToMap(this.clouds);
+    
+    let self = this;
+    requestAnimationFrame(function () { self.draw() }); 
+  }
+
+  addArrayObjectToMap(arrays) { 
+    arrays.forEach(arr => this.addToMap(arr));
   }
 
   addToMap(moveableObj) {

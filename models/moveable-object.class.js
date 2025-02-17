@@ -1,8 +1,8 @@
 class MoveableObject {
   x = 120;  // horizentle postion
-  y = 240;  // vertical position
+  y = 280;  // vertical position
   img;
-  height = 150;
+  height = 150; //objects height[pepe, chicken..]
   width = 100;
   
   loadImage(path) {
